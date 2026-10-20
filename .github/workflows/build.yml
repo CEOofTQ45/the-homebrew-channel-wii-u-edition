@@ -1,0 +1,27 @@
+name: Build Wii U Homebrew
+on: [push, pull_request]branch_protection_rule: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: devkitpro/devkitppc:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Wii U dependencies
+        run: |
+          dkp-pacman -Syu --noconfirm
+          dkp-pacman -S --noconfirm wut-tools wiiu-portlibs wiiu-sdl2
+
+      - name: Build App
+        run: |
+          mkdir build && cd build
+          powerpc-eabi-cmake ..
+          make
+
+      - name: Upload Finished WUHB Bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: my_launcher_bundle
+          path: build/*.wuhb
