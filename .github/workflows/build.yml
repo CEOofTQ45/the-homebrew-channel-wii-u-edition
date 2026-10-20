@@ -11,7 +11,6 @@ jobs:
 
       - name: Install Wii U dependencies
         run: |
-          # Force pacman to ignore security signatures in the container
           sed -i 's/SigLevel = Required/SigLevel = Never/g' /etc/pacman.conf
           dkp-pacman -Syu --noconfirm
           dkp-pacman -S --noconfirm wut-tools wiiu-portlibs wiiu-sdl2
@@ -19,7 +18,8 @@ jobs:
       - name: Build App
         run: |
           mkdir build && cd build
-          powerpc-eabi-cmake ..
+          # Pass the toolchain environment parameters manually to CMake
+          cmake -DCMAKE_TOOLCHAIN_FILE=/opt/devkitpro/cmake/WiiU.cmake ..
           make
 
       - name: Upload Finished WUHB Bundle
