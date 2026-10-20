@@ -11,14 +11,12 @@ jobs:
 
       - name: Install Wii U dependencies
         run: |
-          sed -i 's/SigLevel = Required/SigLevel = Never/g' /etc/pacman.conf
-          dkp-pacman -Syu --noconfirm
+          # The container is already authenticated. Just fetch the extra libraries
           dkp-pacman -S --noconfirm wut-tools wiiu-portlibs wiiu-sdl2
 
       - name: Build App
         run: |
           mkdir build && cd build
-          # Pass the toolchain environment parameters manually to CMake
           cmake -DCMAKE_TOOLCHAIN_FILE=/opt/devkitpro/cmake/WiiU.cmake ..
           make
 
