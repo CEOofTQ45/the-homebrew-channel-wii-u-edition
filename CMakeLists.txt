@@ -14,8 +14,10 @@ target_link_libraries(my_launcher
     rpxloading
 )
 
-# Tell wuhbtool exactly where the placeholder images live
+# Added SHORT_NAME (this stops the script from crashing with exit code 2)
 wut_create_wuhb(my_launcher
     NAME "The Homebrew Channel - Wii U Edition"
+    SHORT_NAME "thehomebrewchannel"
     AUTHOR "The TQ Corp."
+    VERSION "1.0.0"
 )
