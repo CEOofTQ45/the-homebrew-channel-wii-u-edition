@@ -1,10 +1,11 @@
 #include <coreinit/screen.h>
-#include <coreinit/time.h>
 #include <rpxloading/rpxloading.h>
 
-int main(int argc, char **argv) {
+// Forces C-style linking so the Wii U system loader can see the main function
+extern "C" int main(int argc, char **argv) {
     OSScreenInit();
-    // A super basic test: just boot into an app path if triggered
-    // RPX_LoadFile("sd:/wiiu/apps/someapp/someapp.wuhb");
+
+    // Custom logic will live here
+    
     return 0;
 }
