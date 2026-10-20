@@ -18,6 +18,4 @@ target_link_libraries(my_launcher
 wut_create_wuhb(my_launcher
     NAME "The Homebrew Channel - Wii U Edition"
     AUTHOR "The TQ Corp."
-    ICON ${CMAKE_CURRENT_SOURCE_DIR}/resources/icon.png
-    TVSPLASH ${CMAKE_CURRENT_SOURCE_DIR}/resources/tv_image.png
 )
