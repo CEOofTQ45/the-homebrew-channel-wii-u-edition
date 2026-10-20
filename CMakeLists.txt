@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.13)
 
+# Force CMake to load the devkitPro Wii U hardware toolchain rules
+set(CMAKE_TOOLCHAIN_FILE "$ENV{DEVKITPRO}/cmake/WiiU.cmake")
+
 project(TheHomebrewChannelWiiUEdition C CXX)
 
-# Find the Wii U Toolchain configuration
 find_package(WUT REQUIRED)
 
-# Tell the compiler where the source code is
 add_executable(my_launcher source/main.cpp)
 
-# Link the required internal system libraries
 target_link_libraries(my_launcher
     wut::coreinit 
     rpxloading
