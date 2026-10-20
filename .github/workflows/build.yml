@@ -1,5 +1,5 @@
 name: Build Wii U Homebrew
-on: [push, pull_request]branch_protection_rule: 
+on: [push, pull_request]
 
 jobs:
   build:
@@ -7,10 +7,12 @@ jobs:
     container: devkitpro/devkitppc:latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Wii U dependencies
         run: |
+          # Force pacman to ignore security signatures in the container
+          sed -i 's/SigLevel = Required/SigLevel = Never/g' /etc/pacman.conf
           dkp-pacman -Syu --noconfirm
           dkp-pacman -S --noconfirm wut-tools wiiu-portlibs wiiu-sdl2
 
@@ -21,7 +23,7 @@ jobs:
           make
 
       - name: Upload Finished WUHB Bundle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: my_launcher_bundle
           path: build/*.wuhb
