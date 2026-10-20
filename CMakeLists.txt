@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.13)
+project(TheHomebrewChannelWiiUEdition C CXX)
+find_package(WUT REQUIRED)
+add_executable(my_launcher source/main.cpp)
+target_link_libraries(my_launcher wut::coreinit SDL2 rpxloading)
+wut_create_wuhb(my_launcher NAME "The Homebrew Channel - Wii U Edition" AUTHOR "The TQ Corp.")
